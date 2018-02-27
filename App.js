@@ -1,17 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
+import React, {Component} from 'react';
+import {Platform, View, Text, Button} from 'react-native';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -19,22 +7,46 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View>
-        <Text>
-          Welcome to React Native!
-        </Text>
-        <Text>
-          To get started, edit App.js
-        </Text>
-        <Text>
-          {instructions}
-        </Text>
-      </View>
-    );
-  }
-}
 
+export default class App extends Component{
+    constructor(){
+        super();
+        this.state = {
+            textValue:'click buttion to see!'
+        };
+	//this is for ES6 class
+	this.onPress = this.onPress.bind(this);
+	
+	this.onPressArrow=()=>{
+	    this.setState((p)=>{
+	    if(p.textValue=="no click")
+		p.textValue='clicked'
+	    else
+		p.textValue="no click"
+	    return p;
+        });
+
+	};
+    }
+
+    onPress() {
+        this.setState((p)=>{
+	    if(p.textValue=="no click")
+		p.textValue='clicked'
+	    else
+		p.textValue="no click"
+	    return p;
+        });
+    }
+
+     render(){
+        return(
+        <View>
+            <Text>{instructions}</Text>
+            <Text>{this.state.textValue}</Text>
+            <Button title="click using member func with binding to this " onPress={this.onPress}/>
+            <Button title="click use arrow function" onPress={this.onPressArrow}/>
+        </View>
+        );
+    }
+}
